@@ -1,7 +1,7 @@
 {
   "name": "connect-scriptloader",
   "version": "0.0.1",
-  "description": "Connect middleware for loading all scrips in a blob in the browser",
+  "description": "Connect middleware for loading all scrips in a glob in the browser",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
