@@ -24,6 +24,7 @@ module.exports = function (options) {
     if (!options.path || req.url === options.path) {
       res.setHeader('Content-Type', 'application/javascript');
       getScripts(options, function (err, files) {
+        if (err) { return next(err); }
         var data = JSON.stringify(files) + tail;
         res.end(data);
       });
