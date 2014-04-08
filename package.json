@@ -4,13 +4,17 @@
   "description": "Connect middleware for loading all scrips in a glob in the browser",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Dominic Smith <code@smithamax.me>",
   "dependencies": {
     "glob": "~3.2.9"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "should": "~3.3.0",
+    "supertest": "~0.10.0",
+    "express": "~3.5.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/smithamax/connect-scriptloader.git"
