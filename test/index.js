@@ -8,7 +8,7 @@ describe('with path', function(){
   var app = express();
 
   app.use(connectScriptloader({
-    cwd: 'app',
+    cwd: 'test/fake-scripts',
     glob: '**/*.js',
     path: '/app.js'
   }));
@@ -17,6 +17,7 @@ describe('with path', function(){
     request(app)
     .get('/app.js')
     .expect('Content-Type', /javascript/)
+    .expect('["/app.js"]' + connectScriptloader._tail)
     .expect(200, done);
 
   });
@@ -32,7 +33,7 @@ describe('without path (using express router)', function(){
   var app = express();
 
   app.get('/app2.js', connectScriptloader({
-    cwd: 'app',
+    cwd: 'test/fake-scripts',
     glob: '**/*.js',
   }));
 
@@ -48,5 +49,35 @@ describe('without path (using express router)', function(){
     request(app)
     .get('/app1.js')
     .expect(404, done);
+  });
+});
+
+describe('getScripts', function(){
+  it('should get list of files matching glob', function(done){
+
+    connectScriptloader._getScripts(
+      {
+        cwd: 'test/fake-scripts',
+        glob: '**/*.js',
+      },
+      function (err, files) {
+        files.should.have.lengthOf(1);
+        files[0].should.eql('/app.js');
+        done(err);
+      }
+    );
+
+  });
+
+  it('should return error if no glob specified', function(done){
+
+    connectScriptloader._getScripts(
+      {},
+      function (err, files) {
+        err.message.should.eql('option glob is required');
+        done();
+      }
+    );
+
   });
 });
